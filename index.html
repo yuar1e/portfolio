@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポートフォリオ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 30px 0;
+            position: fixed;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 40px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #666;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #333;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 700px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #666;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #555;
+            transform: translateY(-2px);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+        }
+        
+        .projects {
+            padding: 100px 0;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .project-item {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .project-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .project-image {
+            height: 250px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        
+        .project-info {
+            padding: 25px;
+        }
+        
+        .project-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .project-info p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag {
+            padding: 5px 12px;
+            background-color: #eee;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .about {
+            padding: 100px 0;
+            background-color: #f8f8f8;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        
+        .about-image {
+            flex: 1;
+            height: 450px;
+            background-color: #eee;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .skills {
+            margin-top: 40px;
+        }
+        
+        .skills h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .skill-item {
+            padding: 8px 20px;
+            background-color: #fff;
+            border-radius: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .contact {
+            padding: 100px 0;
+        }
+        
+        .contact-content {
+            display: flex;
+            gap: 60px;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-info h2 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .contact-links {
+            margin-top: 30px;
+        }
+        
+        .contact-links a {
+            display: inline-block;
+            margin-right: 15px;
+            color: #333;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-links a:hover {
+            color: #666;
+            transform: translateY(-3px);
+        }
+        
+        .contact-form {
+            flex: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #333;
+            outline: none;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        footer p {
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .social-links a {
+            color: #fff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: #aaa;
+        }
+        
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                width: 100%;
+            }
+            
+            .contact-content {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">PORTFOLIO</a>
+                <ul class="nav-links">
+                    <li><a href="#home">ホーム</a></li>
+                    <li><a href="#projects">プロジェクト</a></li>
+                    <li><a href="#about">自己紹介</a></li>
+                    <li><a href="#contact">お問い合わせ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>クリエイティブな<br>アイデアを形に</h1>
+                <p>デザインとテクノロジーの力で、あなたのビジョンを実現します。</p>
+                <a href="#projects" class="btn">作品を見る</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">プロジェクト</h2>
+            <div class="project-grid">
+                <div class="project-item">
+                    <div class="project-image">プロジェクト画像</div>
+                    <div class="project-info">
+                        <h3>プロジェクト名 1</h3>
+                        <p>このプロジェクトでは、モダンなデザインと最新のテクノロジーを組み合わせて、ユーザーフレンドリーなウェブサイトを作成しました。</p>
+                        <div class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-image">プロジェクト画像</div>
+                    <div class="project-info">
+                        <h3>プロジェクト名 2</h3>
+                        <p>このモバイルアプリは、シンプルながらも効果的なUIデザインを特徴とし、ユーザーのニーズを満たす機能を提供しています。</p>
+                        <div class="project-tags">
+                            <span class="tag">React Native</span>
+                            <span class="tag">Firebase</span>
+                            <span class="tag">UI/UX</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-image">プロジェクト画像</div>
+                    <div class="project-info">
+                        <h3>プロジェクト名 3</h3>
+                        <p>このブランディングプロジェクトでは、クライアントのビジョンを反映した独自のビジュアルアイデンティティを開発しました。</p>
+                        <div class="project-tags">
+                            <span class="tag">ブランディング</span>
+                            <span class="tag">ロゴデザイン</span>
+                            <span class="tag">アイデンティティ</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-image">プロジェクト画像</div>
+                    <div class="project-info">
+                        <h3>プロジェクト名 4</h3>
+                        <p>このウェブアプリケーションは、データ分析と視覚化を組み合わせて、複雑な情報をわかりやすく表示します。</p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">データ可視化</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-image">プロジェクト画像</div>
+                    <div class="project-info">
+                        <h3>プロジェクト名 5</h3>
+                        <p>このプロジェクトでは、ユーザー体験を重視したEコマースサイトを設計・開発しました。</p>
+                        <div class="project-tags">
+                            <span class="tag">Shopify</span>
+                            <span class="tag">Eコマース</span>
+                            <span class="tag">UX設計</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-image">プロジェクト画像</div>
+                    <div class="project-info">
+                        <h3>プロジェクト名 6</h3>
+                        <p>このイラストレーションプロジェクトでは、クライアントのブランドを表現するユニークなビジュアルを作成しました。</p>
+                        <div class="project-tags">
+                            <span class="tag">イラストレーション</span>
+                            <span class="tag">デジタルアート</span>
+                            <span class="tag">ビジュアル</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">自己紹介</h2>
+            <div class="about-content">
+                <div class="about-image">プロフィール画像</div>
+                <div class="about-text">
+                    <h2>はじめまして</h2>
+                    <p>クリエイティブなデザインとテクノロジーの融合に情熱を持つデザイナー兼開発者です。ユーザー中心のデザイン原則を大切にし、美しさと機能性を兼ね備えたプロジェクトを作成することを目指しています。</p>
+                    <p>これまでの5年間で、スタートアップから大企業まで様々なクライアントと協力し、ウェブサイト、モバイルアプリ、ブランディングなど多様なプロジェクトに取り組んできました。常に新しい技術やデザイントレンドを学び、クリエイティブな問題解決を提供することを心がけています。</p>
+                    <div class="skills">
+                        <h3>スキル</h3>
+                        <div class="skill-list">
+                            <div class="skill-item">HTML/CSS</div>
+                            <div class="skill-item">JavaScript</div>
+                            <div class="skill-item">React</div>
+                            <div class="skill-item">UI/UXデザイン</div>
+                            <div class="skill-item">Adobe CC</div>
+                            <div class="skill-item">Figma</div>
+                            <div class="skill-item">Webデザイン</div>
+                            <div class="skill-item">レスポンシブデザイン</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">お問い合わせ</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>ご連絡ください</h2>
+                    <p>プロジェクトのご相談やご質問がございましたら、お気軽にご連絡ください。新しい挑戦をお待ちしています。</p>
+                    <p>メール: email@example.com</p>
+                    <p>電話: 03-1234-5678</p>
+                    <div class="contact-links">
+                        <a href="#" aria-label="Twitter">X</a>
+                        <a href="#" aria-label="LinkedIn">In</a>
+                        <a href="#" aria-label="Instagram">Ig</a>
+                        <a href="#" aria-label="Behance">Be</a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="name">お名前</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">メールアドレス</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">件名</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">メッセージ</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">送信する</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#" aria-label="Twitter">X</a>
+                <a href="#" aria-label="LinkedIn">In</a>
+                <a href="#" aria-label="Instagram">Ig</a>
+                <a href="#" aria-label="Behance">Be</a>
+            </div>
+            <p>&copy; 2025 ポートフォリオ. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
