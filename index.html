@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yua.portfolio</title>
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -16,6 +20,7 @@
             background-color: #ffffff;
             color: #333333;
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .container {
@@ -44,6 +49,8 @@
             font-weight: 700;
             text-decoration: none;
             color: #333;
+            position: relative;
+            overflow: hidden;
         }
         
         .nav-links {
@@ -53,6 +60,7 @@
         
         .nav-links li {
             margin-left: 40px;
+            opacity: 0; /* For animation */
         }
         
         .nav-links a {
@@ -63,7 +71,7 @@
             transition: all 0.3s ease;
         }
         
-        .nav-links a:hover {
+        .nav-links a:hover, .nav-links a.active {
             color: #666;
         }
         
@@ -78,7 +86,7 @@
             transition: width 0.3s ease;
         }
         
-        .nav-links a:hover::after {
+        .nav-links a:hover::after, .nav-links a.active::after {
             width: 100%;
         }
         
@@ -87,6 +95,7 @@
             display: flex;
             align-items: center;
             padding-top: 80px;
+            overflow: hidden; /* For animation */
         }
         
         .hero-content {
@@ -98,12 +107,16 @@
             font-weight: 700;
             margin-bottom: 20px;
             line-height: 1.2;
+            opacity: 0; /* For animation */
+            transform: translateY(30px); /* For animation */
         }
         
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 30px;
             color: #666;
+            opacity: 0; /* For animation */
+            transform: translateY(30px); /* For animation */
         }
         
         .btn {
@@ -115,6 +128,8 @@
             font-weight: 500;
             border-radius: 4px;
             transition: all 0.3s ease;
+            opacity: 0; /* For animation */
+            transform: translateY(30px); /* For animation */
         }
         
         .btn:hover {
@@ -128,6 +143,7 @@
             margin-bottom: 60px;
             position: relative;
             padding-bottom: 20px;
+            opacity: 0; /* For animation */
         }
         
         .section-title::after {
@@ -157,6 +173,8 @@
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
+            opacity: 0; /* For animation */
+            transform: translateY(50px); /* For animation */
         }
         
         .project-item:hover {
@@ -221,10 +239,14 @@
             align-items: center;
             justify-content: center;
             color: #999;
+            opacity: 0; /* For animation */
+            transform: translateX(-50px); /* For animation */
         }
         
         .about-text {
             flex: 1;
+            opacity: 0; /* For animation */
+            transform: translateX(50px); /* For animation */
         }
         
         .about-text h2 {
@@ -257,6 +279,7 @@
             background-color: #fff;
             border-radius: 30px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            opacity: 0; /* For animation */
         }
         
         .contact {
@@ -270,6 +293,8 @@
         
         .contact-info {
             flex: 1;
+            opacity: 0; /* For animation */
+            transform: translateY(30px); /* For animation */
         }
         
         .contact-info h2 {
@@ -301,6 +326,8 @@
         
         .contact-form {
             flex: 1;
+            opacity: 0; /* For animation */
+            transform: translateY(30px); /* For animation */
         }
         
         .form-group {
@@ -343,6 +370,7 @@
         
         footer p {
             margin-bottom: 20px;
+            opacity: 0; /* For animation */
         }
         
         .social-links {
@@ -356,6 +384,8 @@
             color: #fff;
             font-size: 1.2rem;
             transition: all 0.3s ease;
+            opacity: 0; /* For animation */
+            transform: translateY(20px); /* For animation */
         }
         
         .social-links a:hover {
@@ -476,7 +506,7 @@
                         </div>
                     </div>
                 </div>
-                                <div class="project-item">
+                <div class="project-item">
                     <div class="project-image">No Image</div>
                     <div class="project-info">
                         <h3>Untitled</h3>
@@ -568,5 +598,300 @@
             <p>Copyright &copy; Yua</p>
         </div>
     </footer>
+
+    <!-- GSAP Animation Scripts -->
+    <script>
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initial loading animations
+            // Logo animation
+            gsap.from('.logo', {
+                duration: 1.5,
+                y: -50,
+                opacity: 0,
+                ease: 'elastic.out(1, 0.5)'
+            });
+
+            // Nav links animation
+            gsap.to('.nav-links li', {
+                duration: 0.5,
+                opacity: 1,
+                y: 0,
+                stagger: 0.1,
+                delay: 0.5
+            });
+
+            // Hero section animations
+            gsap.to('.hero h1', {
+                duration: 0.8,
+                opacity: 1,
+                y: 0,
+                delay: 0.8
+            });
+
+            gsap.to('.hero p', {
+                duration: 0.8,
+                opacity: 1,
+                y: 0,
+                delay: 1
+            });
+
+            gsap.to('.hero .btn', {
+                duration: 0.8,
+                opacity: 1,
+                y: 0,
+                delay: 1.2
+            });
+
+            // Floating animation for the button
+            gsap.to('.hero .btn', {
+                y: '-=10',
+                duration: 1.5,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                delay: 2
+            });
+
+            // ScrollTrigger animations for projects section
+            gsap.to('.projects .section-title', {
+                scrollTrigger: {
+                    trigger: '.projects',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                duration: 0.8,
+                opacity: 1,
+                y: 0
+            });
+
+            // Project items staggered animation
+            gsap.to('.project-item', {
+                scrollTrigger: {
+                    trigger: '.project-grid',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                duration: 0.5,
+                opacity: 1,
+                y: 0,
+                stagger: 0.15
+            });
+
+            // About section animations
+            gsap.to('.about .section-title', {
+                scrollTrigger: {
+                    trigger: '.about',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                duration: 0.8,
+                opacity: 1,
+                y: 0
+            });
+
+            gsap.to('.about-image', {
+                scrollTrigger: {
+                    trigger: '.about-content',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                duration: 0.8,
+                opacity: 1,
+                x: 0,
+                ease: 'power2.out'
+            });
+
+            gsap.to('.about-text', {
+                scrollTrigger: {
+                    trigger: '.about-content',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                duration: 0.8,
+                opacity: 1,
+                x: 0,
+                ease: 'power2.out',
+                delay: 0.2
+            });
+
+            // Skill items animation
+            gsap.to('.skill-item', {
+                scrollTrigger: {
+                    trigger: '.skills',
+                    start: 'top 90%',
+                    toggleActions: 'play none none none'
+                },
+                duration: 0.5,
+                opacity: 1,
+                scale: 1,
+                stagger: 0.1,
+                ease: 'back.out(1.5)'
+            });
+
+            // Contact section animations
+            gsap.to('.contact .section-title', {
+                scrollTrigger: {
+                    trigger: '.contact',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                duration: 0.8,
+                opacity: 1,
+                y: 0
+            });
+
+            gsap.to('.contact-info', {
+                scrollTrigger: {
+                    trigger: '.contact-content',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                duration: 0.8,
+                opacity: 1,
+                y: 0
+            });
+
+            gsap.to('.contact-form', {
+                scrollTrigger: {
+                    trigger: '.contact-content',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                duration: 0.8,
+                opacity: 1,
+                y: 0,
+                delay: 0.2
+            });
+
+            // Footer animations
+            gsap.to('.social-links a', {
+                scrollTrigger: {
+                    trigger: 'footer',
+                    start: 'top 90%',
+                    toggleActions: 'play none none none'
+                },
+                duration: 0.5,
+                opacity: 1,
+                y: 0,
+                stagger: 0.1
+            });
+
+            gsap.to('footer p', {
+                scrollTrigger: {
+                    trigger: 'footer',
+                    start: 'top 90%',
+                    toggleActions: 'play none none none'
+                },
+                duration: 0.5,
+                opacity: 1,
+                delay: 0.3
+            });
+
+            // Project hover animations
+            const projectItems = document.querySelectorAll('.project-item');
+            
+            projectItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    gsap.to(this.querySelector('.project-info'), {
+                        y: -10,
+                        duration: 0.3
+                    });
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    gsap.to(this.querySelector('.project-info'), {
+                        y: 0,
+                        duration: 0.3
+                    });
+                });
+            });
+
+            // Parallax effect for the hero section
+            gsap.to('.hero-content', {
+                scrollTrigger: {
+                    trigger: '.hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true
+                },
+                y: 100,
+                ease: 'none'
+            });
+
+            // Text animation for section titles
+            const sectionTitles = document.querySelectorAll('.section-title');
+            
+            sectionTitles.forEach(title => {
+                // Create a split text animation
+                const chars = title.textContent.split('');
+                title.innerHTML = '';
+                
+                chars.forEach(char => {
+                    const span = document.createElement('span');
+                    span.textContent = char;
+                    span.style.display = 'inline-block';
+                    span.style.opacity = '0';
+                    title.appendChild(span);
+                });
+                
+                gsap.to(title.children, {
+                    scrollTrigger: {
+                        trigger: title,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    },
+                    opacity: 1,
+                    stagger: 0.05,
+                    duration: 0.1,
+                    ease: 'power1.inOut'
+                });
+            });
+
+            // Smooth scroll for navigation links
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    // Get the current scroll position
+                    const startPos = window.pageYOffset;
+                    // Get the target position
+                    const targetPos = targetSection.getBoundingClientRect().top + window.pageYOffset - 80;
+                    // Calculate distance
+                    const distance = targetPos - startPos;
+                    
+                    // Animate scroll with GSAP
+                    gsap.to(window, {
+                        duration: 1.2, // Slightly longer for more noticeable animation
+                        scrollTo: {
+                            y: targetSection,
+                            offsetY: 80
+                        },
+                        ease: "expo.out", // Using expo.out for a more dramatic easing
+                        onStart: function() {
+                            // Add active class to the clicked link
+                            navLinks.forEach(l => l.classList.remove('active'));
+                            link.classList.add('active');
+                        },
+                        onComplete: function() {
+                            // Optional: Add a small bounce effect when reaching the section
+                            gsap.fromTo(targetSection, 
+                                {y: -5}, 
+                                {y: 0, duration: 0.3, ease: "elastic.out(1, 0.5)"}
+                            );
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
